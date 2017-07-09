@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config>
+	<menu>
+		<catalog>
+			<children>
+				<smarttabs>
+					<title>Manage Smart Tabs</title>
+					<sort_order>11</sort_order>
+					<action>adminhtml/smarttabs</action>
+				</smarttabs>
+			</children>
+		</catalog>
+	</menu>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<catalog>
+						<children>
+							<smarttabs>
+								<title>Smart Tabs</title>
+								<sort_order>400</sort_order>
+							</smarttabs>
+						</children>
+					</catalog>
+					<system>
+						<children>
+							<config>
+								<children>
+									<smarttabs>
+										<title>Smart Tabs</title>
+										<sort_order>990</sort_order>
+									</smarttabs>
+								</children>
+							</config>
+						</children>
+					</system>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+</config>

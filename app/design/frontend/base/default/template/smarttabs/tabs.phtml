@@ -1,0 +1,46 @@
+<?php
+/**
+ * @category    Fishpig
+ * @package    Fishpig_SmartTabs
+ * @license      http://fishpig.co.uk/license.txt
+ * @author       Ben Tideswell <ben@fishpig.co.uk>
+ */
+?>
+<?php $tabs = $this->getTabs() ?>
+<?php if (count($tabs) > 0): ?>
+	<script type="text/javascript" src="<?php echo $this->getTabsJsUrl() ?>"></script>
+	<style type="text/css">
+		.smart-tabs ul.tabs {  height: 1%; overflow: hidden; }
+		.smart-tabs ul.tabs li { float: left; margin-right: 2px; }
+		.smart-tabs ul.tabs li a {  display: block; font-size: 1.2em; line-height: 1.75em; padding: 6px 12px; text-decoration: none; }
+		.smart-tabs .tab-content-wrapper { padding: 20px; }
+	</style>
+	<div id="collateral-tabs" class="smart-tabs">
+		<ul class="tabs">
+			<?php $it = 0; foreach ($tabs as $tab): ?>
+				<li id="tab-<?php echo $tab['alias'] ?>" <?php if (++$it==1): ?> class="first active tab"<?php endif; ?>>
+					<a href="#<?php echo $tab['alias'] ?>">
+						<span><?php echo $this->__($tab['title']) ?></span>
+					</a>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+		<div class="tab-content-wrapper" style="clear:both;">
+			<?php $it = 0; foreach ($tabs as $tab): ++$it; ?>
+				<div id="<?php echo $tab['alias'] ?>" class="tab-content"<?php if ($it != 1): ?> style="display: none;"<?php endif; ?>>
+					<div class="tab-content-inner"><?php echo $this->getChildHtml($tab['alias']) ?></div>
+				</div>
+			<?php endforeach; ?>
+		</div>
+	</div>
+	<script type="text/javascript">
+	//<![CDATA[
+		new fishpig.SmartTabs('collateral-tabs', {
+			'isGreedy': true,
+			'animation': 'toggle',
+			'activeClass': 'active',
+			'activeClassOnAnchor': ''
+		});
+	//]]>
+	</script>
+<?php endif; ?>

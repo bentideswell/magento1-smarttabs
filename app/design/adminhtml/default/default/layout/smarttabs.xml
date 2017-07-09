@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<layout>
+	<!--
+	/**
+	 * Tab Grid
+	 */
+	 -->
+	<adminhtml_smarttabs_index>
+		<reference name="content">
+			<block type="smarttabs/adminhtml_tab" name="smarttabs.tab" />
+		</reference>
+	</adminhtml_smarttabs_index>
+	<!--
+	/**
+	 * smarttab tab Edit Form
+	 */
+	 -->
+	<adminhtml_smarttabs_edit>
+		<update handle="editor" />
+		<reference name="left">
+			<block type="smarttabs/adminhtml_tab_edit_tabs" name="smarttab.tab.tabs" />
+		</reference>
+		<reference name="content">
+			<block type="smarttabs/adminhtml_tab_edit" name="smarttab.tab" />
+		</reference>
+		<reference name="before_body_end">
+			<block type="adminhtml/template" name="smarttab.tab.js" template="smarttabs/tab/js.phtml" />
+		</reference>
+	</adminhtml_smarttabs_edit>
+</layout>

@@ -1,0 +1,23 @@
+/**
+ * @category Fishpig
+ * @package Fishpig_SmartTabs
+ * @license http://fishpig.co.uk/license.txt
+ * @author Ben Tideswell <ben@fishpig.co.uk>
+ */
+
+CHANGELOG
+
+- 26/06/2017 - v1.3.3.10
+- Fixed a packaging issue.
+
+- 16/06/2017 - v1.3.3.7
+- Fixed issue caused by badly written Ajax Cart extension.
+
+- 15/08/2016 - v1.3.3.6
+- Added support for SKU filtering. You can now show tabs for specific SKUs.
+
+- 21/07/2015 - v1.3.3.3
+- Fixed issue that caused tabs that contain static blocks to be cached, which meant if filters were applied to the tab, the cached version - which is incorrect - would be displayed. This no longer happens.
+
+- 10/07/2015 - v1.3.3.2
+- This update fixes the ACL issue present when using Magento 1.9.2.0. If you get an 'Access Denied' message when viewing the SmartTabs admin page (even after logging out and logging back in) and are using Magento 1.9.2.0, upgrading to this version will fix that issue.

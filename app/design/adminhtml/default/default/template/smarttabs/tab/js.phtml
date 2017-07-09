@@ -1,0 +1,92 @@
+<?php
+/**
+ *
+ */
+?>
+<script type="text/javascript">
+//<![CDATA[
+
+	(function() {
+		var source = $('smarttabs_content_type');
+		var types = $('smarttabs_tab_edit_tabs_content_content').select('div.fieldset');
+		
+		// Fix the note width
+		$$('.fieldset p.note').invoke('setStyle', {'width': 'auto'});
+		
+		var refreshTypes = function() {
+			types.each(function(type, ind) {
+				if (ind > 0) {
+					if (ind != source.getValue()) {
+						type.hide().previous('div.entry-edit-head').hide();
+					}
+					else {
+						type.show().previous('div.entry-edit-head').show();
+					}
+				}
+			});
+		}
+		
+		refreshTypes();
+		
+		source.observe('change', refreshTypes);
+	})();
+
+	<?php if (false): ?>
+	(function() {
+		$$('select.multiselect').each(function(elem, ind) {
+			if (elem.readAttribute('size') > elem.length) {
+				elem.writeAttribute('size', elem.length);
+			}
+		});
+		
+		$('smarttabs_tab_edit_tabs_filters_content').select('select.select').each(function(elem, ind) {
+			if (!elem.hasClassName('multiselect')) {
+				console.log(elem.id + '(' + elem.options.length + ')');
+				
+				var len = elem.options.length;
+				var selected = 0;
+				
+				for(var i = 0; i < len; i++) {
+					selected += $(elem.options[i]).readAttribute('selected') ? 1 : 0;
+				}
+				
+				if (selected > 1) {
+					elem.selectedIndex = 0;
+				}
+			}
+		});
+	})();
+	<?php endif; ?>
+	
+	(function() {
+		var src = $('smarttabs_content_type');
+		var defs = false;
+		
+		var loadPresetDefaults = function() {
+			if (src.getValue() == <?php echo Fishpig_SmartTabs_Model_Tab::CONTENT_TYPE_ID_XML ?>) {
+				if (!defs) {
+					new Ajax.Request('<?php echo $this->getUrl('*/*/xmlPresetDefaults') ?>', {
+						onSuccess: function(response) {
+							defs = response.responseText.evalJSON();
+						}
+					});
+				}
+			}				
+		};
+		
+		var elem = $('smarttabs_content_<?php echo Fishpig_SmartTabs_Model_Tab::CONTENT_TYPE_ID_XML ?>_preset');
+		var target = $('smarttabs_content_<?php echo Fishpig_SmartTabs_Model_Tab::CONTENT_TYPE_ID_XML ?>_code');
+
+		loadPresetDefaults();
+
+		src.observe('change', loadPresetDefaults.bindAsEventListener(this));
+	
+		if (elem) {
+			elem.observe('change', function(event) {
+				target.setValue(defs[elem.getValue()]);
+			});
+		}
+	})();
+
+//]]>
+</script>

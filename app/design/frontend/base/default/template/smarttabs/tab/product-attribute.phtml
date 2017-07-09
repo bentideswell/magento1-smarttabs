@@ -1,0 +1,13 @@
+<?php
+/**
+ * @category    Fishpig
+ * @package    Fishpig_SmartTabs
+ * @license      http://fishpig.co.uk/license.txt
+ * @author       Ben Tideswell <ben@fishpig.co.uk>
+ */
+?>
+<?php if ($this->getAttributeValue()): ?>
+    <div class="std">
+	    <?php echo Mage::helper('cms')->getBlockTemplateProcessor()->filter($this->getAttributeValue()) ?>
+    </div>
+<?php endif; ?>

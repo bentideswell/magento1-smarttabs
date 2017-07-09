@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Fishpig
+ * @package    Fishpig_SmartTabs
+ * @license      http://fishpig.co.uk/license.txt
+ * @author       Ben Tideswell <ben@fishpig.co.uk>
+ */
+ -->
+<layout>
+	<catalog_product_view>
+		<reference name="product.info">
+			<block type="catalog/product_view_tabs" name="product.info.tabs" as="info_tabs" after="-" template="catalog/product/view/tabs.phtml" />
+		</reference>
+	</catalog_product_view>
+</layout>
