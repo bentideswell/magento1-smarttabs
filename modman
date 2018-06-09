@@ -5,4 +5,3 @@ app/design/frontend/base/default/layout/smarttabs.xml app/design/frontend/base/d
 app/design/frontend/base/default/template/smarttabs app/design/frontend/base/default/template/smarttabs
 app/etc/modules/Fishpig_SmartTabs.xml app/etc/modules/Fishpig_SmartTabs.xml
 js/smarttabs js/smarttabs
-var/connect/Fishpig_SmartTabs.xml var/connect/Fishpig_SmartTabs.xml
