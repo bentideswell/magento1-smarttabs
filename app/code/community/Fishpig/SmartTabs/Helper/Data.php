@@ -64,6 +64,7 @@ class Fishpig_SmartTabs_Helper_Data extends Mage_Core_Helper_Abstract
 				$smartTabs[$alias] = $tab;
 			}
 			else {
+				continue;
 				print_r($smartTabs[$alias]->getFilters());exit;
 			}
 		}

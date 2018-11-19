@@ -405,6 +405,12 @@ class Fishpig_SmartTabs_Model_Tab extends Mage_Core_Model_Abstract
 			}
 		}
 
+		if ($filters) {
+			if (count($filters) === 1 && isset($filters['product']) && empty($filters['product'])) {
+				return false;
+			}
+		}
+		
 		return $filters;
 	}
 	
