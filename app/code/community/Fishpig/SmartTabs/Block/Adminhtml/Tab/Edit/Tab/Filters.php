@@ -49,7 +49,14 @@ class Fishpig_SmartTabs_Block_Adminhtml_Tab_Edit_Tab_Filters extends Mage_Adminh
 			'values' => Mage::getSingleton('catalog/product_type')->getOptions(),
 			'note' => 'Leave empty for all',
 		));
-
+		
+		$fieldset->addField('filters_product_tax_class_id', 'multiselect', array(
+			'name' => 'filters[product][tax_class_id]',
+			'title' => $this->helper('adminhtml')->__('Tax Class ID'),
+			'label' => $this->helper('adminhtml')->__('Tax Class ID'),
+			'values' => Mage::getSingleton('tax/class_source_product')->getAllOptions(false),
+			'note' => 'Leave empty for all',
+		));
 
 		$productAttributeSets = Mage::getResourceModel('eav/entity_attribute_set_collection')
 			->setEntityTypeFilter(

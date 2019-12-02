@@ -6,6 +6,8 @@
  */
 
 CHANGELOG
+- 02/12/2019 - 1.3.3.14
+- Added tax_class_id to attribute filters.
 
 - 26/06/2017 - v1.3.3.10
 - Fixed a packaging issue.
