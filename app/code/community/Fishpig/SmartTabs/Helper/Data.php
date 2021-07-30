@@ -8,7 +8,10 @@
 
 class Fishpig_SmartTabs_Helper_Data extends Mage_Core_Helper_Abstract
 {
-	protected $_smartTabs = array();
+    /**
+     *
+     */
+	protected $_smartTabs = [];
 	
 	/**
 	 * Get the full tabs html string
@@ -41,7 +44,7 @@ class Fishpig_SmartTabs_Helper_Data extends Mage_Core_Helper_Abstract
 			->load()
 			->walk('afterLoad');
 		
-		$tabsArray = array();
+		$tabsArray = [];
 		
 		foreach($tabs as $key => $tab) {
 			if (!$tab->setProduct($_product)->canApplyToProduct($_product)) {
@@ -49,28 +52,29 @@ class Fishpig_SmartTabs_Helper_Data extends Mage_Core_Helper_Abstract
 			}
 		}
 		
-		$smartTabs = array();
+		$smartTabs = [];
 		
 		foreach($tabs as $key => $tab) {
 			$alias = $tab->getAlias();
-			
+
 			if (!isset($smartTabs[$alias])) {
 				$smartTabs[$alias] = $tab;
-			}
-			else if (!$tab->getFilters()) {
+			} elseif (!$tab->getFilters()) {
 				continue;
-			}
-			else if (!$smartTabs[$alias]->getFilters()) {
+			} elseif (!$smartTabs[$alias]->getFilters()) {
 				$smartTabs[$alias] = $tab;
-			}
-			else {
-				continue;
-				print_r($smartTabs[$alias]->getFilters());exit;
+			} else {
+    			$tabWeight = strlen(print_r($tab->getFilters(), true));
+    			$existingTabWeight = strlen(print_r($smartTabs[$alias]->getFilters(), true));
+			
+    			if ($tabWeight > $existingTabWeight) {
+    				$smartTabs[$alias] = $tab;
+    			}
 			}
 		}
 		
 		$this->_smartTabs[$_product->getId()] = $smartTabs;
 		 
-		 return $this->_smartTabs[$_product->getId()];
+        return $this->_smartTabs[$_product->getId()];
 	}
 }

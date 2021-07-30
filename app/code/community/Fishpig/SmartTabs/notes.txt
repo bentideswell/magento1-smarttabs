@@ -6,6 +6,9 @@
  */
 
 CHANGELOG
+- 30/07/2021 - 1.3.3.17
+- Added simple weight comparison system for matching tabs.
+
 - 02/12/2019 - 1.3.3.14
 - Added tax_class_id to attribute filters.
 
