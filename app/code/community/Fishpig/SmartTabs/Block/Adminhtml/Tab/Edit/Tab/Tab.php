@@ -42,6 +42,13 @@ class Fishpig_SmartTabs_Block_Adminhtml_Tab_Edit_Tab_Tab extends Mage_Adminhtml_
 			'class' => 'required-entry validate-identifier',
 		));
 		
+		$fieldset->addField('description', 'text', array(
+			'name' => 'description',
+			'label' => $this->helper('adminhtml')->__('Description'),
+			'title' => $this->helper('adminhtml')->__('Description'),
+			'note' => 'This is not shown on the frontend and can be used to an easy identifier to the tab. Eg. Delivery tab for brands A, B and D. Product Type A only. Limited to 255 characters',
+		));
+		
 		if (!Mage::app()->isSingleStoreMode()) {
 			$field = $fieldset->addField('store_id', 'multiselect', array(
 				'name' => 'stores[]',

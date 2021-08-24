@@ -23,8 +23,21 @@ class Fishpig_SmartTabs_Block_Adminhtml_Tab_Edit_Tab_Filters extends Mage_Adminh
 		$this->_addProductFilters();
 		$this->_addPriceFilters();		
 		$this->_addAttributeFilters();
-		
-		$this->getForm()->setValues($this->_getFormData());
+
+        $formData = $this->_getFormData();
+
+        foreach (['smarttabs_filter_product', 'smarttabs_filters', 'smarttabs_filter_price'] as $fieldsetId) {
+            $fieldset = $this->getForm()->getElement($fieldsetId);
+            
+            foreach ($fieldset->getElements() as $element) {
+                if (isset($formData[$element->getId()])) {
+                    $element->addClass('has-selected-value');
+                }
+            }
+        }
+
+
+		$this->getForm()->setValues($formData);
 
 		return parent::_prepareForm();
 	}
@@ -144,13 +157,17 @@ class Fishpig_SmartTabs_Block_Adminhtml_Tab_Edit_Tab_Filters extends Mage_Adminh
 				));
 			}
 		}
-		
-		$fieldset->addFIeld('filters_price_is_on_sale', 'select', array(
+        
+        $isOnSaleOptions = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
+        
+        array_unshift($isOnSaleOptions, ['value' => '', 'label' => '-- Not Applied --']);
+
+		$fieldset->addField('filters_price_is_on_sale', 'select', array(
 			'name' => 'filters[price][is_on_sale]',
 			'title' => $this->helper('adminhtml')->__('Is On Sale'),
 			'label' => $this->helper('adminhtml')->__('Is On Sale'),
 			'required' => false,
-			'values' => Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray(),
+			'values' =>$isOnSaleOptions,
 		));
 
 
@@ -164,9 +181,9 @@ class Fishpig_SmartTabs_Block_Adminhtml_Tab_Edit_Tab_Filters extends Mage_Adminh
 	 */
 	protected function _getFormData()
 	{
-		return ($page = Mage::registry('smarttabs_tab')) !== null 
-			? $page->getAdminData() 
-			: array();
+    	return ($page = Mage::registry('smarttabs_tab')) !== null 
+            ? ($page->getAdminData())
+            : [];
 	}
 	
 	/**
@@ -187,4 +204,30 @@ class Fishpig_SmartTabs_Block_Adminhtml_Tab_Edit_Tab_Filters extends Mage_Adminh
 		
 		return $collection;
 	}
+	
+	/**
+     *
+     */
+    protected function _afterToHtml($html)
+    {
+        $html = parent::_afterToHtml($html);
+        $html .= '<style>.has-selected-value{border:4px solid #2eb72e}</style>';
+        
+        
+        $formData = $this->_getFormData();
+
+        if (!isset($formData['filters_price_is_on_sale'])) {
+            if (preg_match('/<select[^>]+id="smarttabs_filters_price_is_on_sale"[^>]*>.*<\/select>/Uis', $html, $matches)) {
+                $selectHtml = $matches[0];
+
+                if (strpos($selectHtml, 'value="" selected') !== false) {
+                    $selectHtml = str_replace('value="0" selected="selected"', 'value="0"', $selectHtml);
+                    
+                    $html = str_replace($matches[0], $selectHtml, $html);
+                }
+            }
+        }
+
+        return $html;
+    }
 }

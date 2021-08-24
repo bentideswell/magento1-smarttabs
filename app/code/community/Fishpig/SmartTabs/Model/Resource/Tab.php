@@ -272,7 +272,7 @@ class Fishpig_SmartTabs_Model_Resource_Tab extends Mage_Core_Model_Resource_Db_A
 		else {
 			$object->setFilters(null);
 		}
-		
+
 		return $this;	
 	}
 	
@@ -307,8 +307,10 @@ class Fishpig_SmartTabs_Model_Resource_Tab extends Mage_Core_Model_Resource_Db_A
 							$adminData['filters_price_' . $attribute . '_' . $key] = $value;		
 						}
 					}
-					else if ($value !== '0') {
-						$adminData['filters_price_' . $attribute] = $value;
+					else if ($values !== '0') {
+						$adminData['filters_price_' . $attribute] = $values;
+					} elseif ($attribute === 'is_on_sale' && $values === '0') {
+						$adminData['filters_price_' . $attribute] = $values;    					
 					}
 				}
 			}
@@ -319,7 +321,7 @@ class Fishpig_SmartTabs_Model_Resource_Tab extends Mage_Core_Model_Resource_Db_A
 				}
 			}
 		}
-		
+
 		if (is_array($data = $object->getFilters())) {
 			if (isset($data['attribute'])) {
 				foreach($data['attribute'] as $attribute => $value) {

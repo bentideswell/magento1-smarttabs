@@ -87,6 +87,12 @@ class Fishpig_SmartTabs_Block_Adminhtml_Tab_Grid extends Mage_Adminhtml_Block_Wi
 			'index'		=> 'alias',
 		));
 		
+		$this->addColumn('description', array(
+			'header'	=> $this->__('Description'),
+			'align'		=> 'left',
+			'index'		=> 'description',
+		));
+		
 		if (!Mage::app()->isSingleStoreMode()) {
 			$this->addColumn('store_id', array(
 				'header'	=> $this->__('Store'),

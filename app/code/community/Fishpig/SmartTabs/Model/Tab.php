@@ -375,7 +375,7 @@ class Fishpig_SmartTabs_Model_Tab extends Mage_Core_Model_Abstract
 	{
 		$filters = $this->_getData('filters');
 
-		if (isset($filters['price']) && isset($filters['price']['is_on_sale']) && $filters['price']['is_on_sale'] === '0') {
+		if (isset($filters['price']) && isset($filters['price']['is_on_sale']) && $filters['price']['is_on_sale'] === '') {
 			unset($filters['price']['is_on_sale']);
 			
 			if (!$filters['price']) {
